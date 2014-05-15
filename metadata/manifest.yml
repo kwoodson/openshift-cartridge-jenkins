@@ -11,7 +11,7 @@ License: MIT license
 License-Url: https://jenkins-ci.org/mit-license
 Cartridge-Version: 0.0.13
 Compatible-Versions: []
-Cartridge-Vendor: redhat
+Cartridge-Vendor: kwoodson
 Categories:
 - web_framework
 - instant_app
