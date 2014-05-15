@@ -39,12 +39,14 @@ fi
 
 pushd $OPENSHIFT_DATA_DIR/tmp
 
+PACKAGE_NAME="jenkins-1.554.1-1.1.noarch.rpm"
+
 #Fetch package from jenkins-ci.org
-wget -nv http://pkg.jenkins-ci.org/redhat-stable/jenkins-1.554.1-1.1.noarch.rpm
+wget -O $OPENSHIFT_DATA_DIR/tmp/$PACKAGE_NAME -nv http://pkg.jenkins-ci.org/redhat-stable/$PACKAGE_NAME
 #Expand rpm to files
-rpm2cpio jenkins.1.554.1-1.1.noarch.rpm | cpio -idmv
+rpm2cpio $OPENSHIFT_DATA_DIR/tmp/$PACKAGE_NAME | cpio -idmv
 #Take war file and place it into DATA_DIR
-unzip -q usr/lib/jenkins/jenkins.war -d "${OPENSHIFT_DATA_DIR}/war/"
+unzip -q $OPENSHIFT_DATA_DIR/tmp/usr/lib/jenkins/jenkins.war -d "${OPENSHIFT_DATA_DIR}/war/"
 
 popd
 
