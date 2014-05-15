@@ -33,12 +33,20 @@ mv "${OPENSHIFT_JENKINS_DIR}configuration/"* "${OPENSHIFT_DATA_DIR}"
 openshift_server=`echo "${OPENSHIFT_BROKER_HOST}" | sed -e "s/\/*$//" `
 sed -i "s,OPENSHIFT_SERVER,$openshift_server,g" "${OPENSHIFT_DATA_DIR}/config.xml"
 
+if [ ! -d $OPENSHIFT_DATA_DIR/tmp ]; then
+  mkdir $OPENSHIFT_DATA_DIR/tmp
+fi
+
+pushd $OPENSHIFT_DATA_DIR/tmp
+
 #Fetch package from jenkins-ci.org
-wget http://pkg.jenkins-ci.org/redhat-stable/jenkins-1.554.1-1.1.noarch.rpm
+wget -nv http://pkg.jenkins-ci.org/redhat-stable/jenkins-1.554.1-1.1.noarch.rpm
 #Expand rpm to files
 rpm2cpio jenkins.1.554.1-1.1.noarch.rpm | cpio -idmv
 #Take war file and place it into DATA_DIR
 unzip -q usr/lib/jenkins/jenkins.war -d "${OPENSHIFT_DATA_DIR}/war/"
+
+popd
 
 admin_password_hash=`obfuscate_password $admin_password`
 sed -i "s,PASSWORD,$admin_password_hash,g" "${OPENSHIFT_DATA_DIR}/users/admin/config.xml"
