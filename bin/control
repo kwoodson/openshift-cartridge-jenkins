@@ -62,7 +62,7 @@ function start() {
   fi
   
   if [ -z "$JENKINS_WAR_PATH" ]; then
-    JENKINS_WAR_PATH=/usr/lib/jenkins/jenkins.war
+    JENKINS_WAR_PATH=$OPENSHIFT_DATA_DIR/tmp/usr/lib/jenkins/jenkins.war
   fi
 
   JENKINS_CMD="${JENKINS_CMD} ${JENKINS_OPTS} -DJENKINS_HOME=$OPENSHIFT_DATA_DIR \
