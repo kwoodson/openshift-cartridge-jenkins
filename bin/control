@@ -8,7 +8,7 @@ cartridge_type="jenkins"
 
 function isrunning() {
     # Check for running app
-    pid=`pgrep -f ".*java.*-jar.*jenkins.war.*--httpListenAddress=${OPENSHIFT_JENKINS_IP}.*" 2> /dev/null`
+    pid=`pgrep -f ".*java.*-jar.*jenkins.war.*--httpListenAddress=${OPENSHIFT_OPS_JENKINS_IP}.*" 2> /dev/null`
     if [ -n "$pid" ]
     then
         return 0
@@ -19,7 +19,7 @@ function isrunning() {
 
 # Check if the server is all the way up
 function is_up() {
-    jenkins_url="http://${OPENSHIFT_JENKINS_IP}:8080/"
+    jenkins_url="http://${OPENSHIFT_OPS_JENKINS_IP}:8080/"
 
     let count=0
     while [ ${count} -lt 64 ]
@@ -59,7 +59,7 @@ function start() {
   fi
 
   if marker_present "enable_debugging"; then
-      JENKINS_CMD="${JENKINS_CMD} -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=${OPENSHIFT_JENKINS_IP}:7600,suspend=n"
+      JENKINS_CMD="${JENKINS_CMD} -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=${OPENSHIFT_OPS_JENKINS_IP}:7600,suspend=n"
   fi
 
   if [ -z "$JENKINS_WAR_PATH" ]; then
@@ -79,7 +79,7 @@ function start() {
       --httpPort=8080 \
       --handlerCountMax=45 \
       --handlerCountMaxIdle=20 \
-      --httpListenAddress=$OPENSHIFT_JENKINS_IP"
+      --httpListenAddress=$OPENSHIFT_OPS_JENKINS_IP"
 
   # Without this, international characters in job definitions
   # are not handled properly by Jenkins
