@@ -23,7 +23,7 @@ function is_up() {
     let count=0
     while [ ${count} -lt 64 ]
     do
-        url="curl -s -k -X GET --user \"${JENKINS_USERNAME}:${JENKINS_PASSWORD}\" ${jenkins_url}"
+        url="curl -s -k -X GET --user \"${OPS_JENKINS_USERNAME}:${OPS_JENKINS_PASSWORD}\" ${jenkins_url}"
         result=`$url`
         if [ -n "$result" ]; then
             if [[ "$result" == *"Please wait while Jenkins is getting ready to work"* ]]; then
@@ -137,7 +137,7 @@ function post_restore() {
   local openshift_server=`echo "${OPENSHIFT_BROKER_HOST}" | sed -e "s/\/*$//"`
   sed -r -i "s/<brokerHost>(.*)<\/brokerHost>/<brokerHost>$openshift_server<\/brokerHost>/g" ${OPENSHIFT_DATA_DIR}/config.xml
 
-  local password_hash=`obfuscate_password $JENKINS_PASSWORD`
+  local password_hash=`obfuscate_password $OPS_JENKINS_PASSWORD`
   sed -r -i "s/<passwordHash>(.*)<\/passwordHash>/<passwordHash>$password_hash<\/passwordHash>/g" ${OPENSHIFT_DATA_DIR}/users/system_builder/config.xml
 }
 

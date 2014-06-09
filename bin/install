@@ -26,8 +26,8 @@ add_domain_ssh_key "$2"
 admin_password=$(generate_password)
 system_builder_password=$(generate_password)
 
-echo "system_builder" > $OPENSHIFT_JENKINS_DIR/env/JENKINS_USERNAME
-echo "$system_builder_password" > $OPENSHIFT_JENKINS_DIR/env/JENKINS_PASSWORD
+echo "system_builder" > $OPENSHIFT_JENKINS_DIR/env/OPS_JENKINS_USERNAME
+echo "$system_builder_password" > $OPENSHIFT_JENKINS_DIR/env/OPS_JENKINS_PASSWORD
 
 mv "${OPENSHIFT_JENKINS_DIR}configuration/"* "${OPENSHIFT_DATA_DIR}"
 openshift_server=`echo "${OPENSHIFT_BROKER_HOST}" | sed -e "s/\/*$//" `
@@ -68,6 +68,6 @@ client_result ""
 cart_props "username=system_builder"
 cart_props "password=$system_builder_password"
 
-add_domain_env_var "JENKINS_URL=https://${OPENSHIFT_GEAR_DNS}/"
-add_domain_env_var "JENKINS_USERNAME=system_builder"
-add_domain_env_var "JENKINS_PASSWORD=$system_builder_password"
+add_domain_env_var "OPS_JENKINS_URL=https://${OPENSHIFT_GEAR_DNS}/"
+add_domain_env_var "OPS_JENKINS_USERNAME=system_builder"
+add_domain_env_var "OPS_JENKINS_PASSWORD=$system_builder_password"
