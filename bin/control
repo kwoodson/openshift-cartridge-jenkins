@@ -1,7 +1,8 @@
 #!/bin/bash -e
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
-source $OPENSHIFT_JENKINS_DIR/bin/util
+OPS_OPENSHIFT_JENKINS_DIR=$HOPENSHIFT_HOMEDIR/jenkins/
+source $OPS_OPENSHIFT_JENKINS_DIR/bin/util
 
 cartridge_type="jenkins"
 
@@ -60,7 +61,7 @@ function start() {
   if marker_present "enable_debugging"; then
       JENKINS_CMD="${JENKINS_CMD} -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=${OPENSHIFT_JENKINS_IP}:7600,suspend=n"
   fi
-  
+
   if [ -z "$JENKINS_WAR_PATH" ]; then
     JENKINS_WAR_PATH=$OPENSHIFT_DATA_DIR/tmp/usr/lib/jenkins/jenkins.war
   fi
@@ -79,13 +80,13 @@ function start() {
       --handlerCountMax=45 \
       --handlerCountMaxIdle=20 \
       --httpListenAddress=$OPENSHIFT_JENKINS_IP"
-  
+
   # Without this, international characters in job definitions
   # are not handled properly by Jenkins
-  export LANG=en_US.UTF.8 
-  
+  export LANG=en_US.UTF.8
+
   nohup $JENKINS_CMD |& /usr/bin/logshifter -tag jenkins &
-  
+
   if ! is_up; then
       echo "Timed out waiting for Jenkins to fully start"
       exit 0
