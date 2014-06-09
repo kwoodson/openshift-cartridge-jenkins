@@ -5,8 +5,9 @@ case "$1" in
     version="$2"
 esac
 
+OPS_OPENSHIFT_JENKINS_DIR=$OPENSHIFT_HOMEDIR/jenkins
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
-source $OPENSHIFT_JENKINS_DIR/bin/util
+source $OPS_OPENSHIFT_JENKINS_DIR/bin/util
 
 function generate_ssh_keys {
     mkdir -p ${OPENSHIFT_DATA_DIR}/.ssh/
@@ -26,10 +27,10 @@ add_domain_ssh_key "$2"
 admin_password=$(generate_password)
 system_builder_password=$(generate_password)
 
-echo "system_builder" > $OPENSHIFT_JENKINS_DIR/env/OPS_JENKINS_USERNAME
-echo "$system_builder_password" > $OPENSHIFT_JENKINS_DIR/env/OPS_JENKINS_PASSWORD
+echo "system_builder" > $OPS_OPENSHIFT_JENKINS_DIR/env/OPS_JENKINS_USERNAME
+echo "$system_builder_password" > $OPS_OPENSHIFT_JENKINS_DIR/env/OPS_JENKINS_PASSWORD
 
-mv "${OPENSHIFT_JENKINS_DIR}configuration/"* "${OPENSHIFT_DATA_DIR}"
+mv "${OPS_OPENSHIFT_JENKINS_DIR}configuration/"* "${OPENSHIFT_DATA_DIR}"
 openshift_server=`echo "${OPENSHIFT_BROKER_HOST}" | sed -e "s/\/*$//" `
 sed -i "s,OPENSHIFT_SERVER,$openshift_server,g" "${OPENSHIFT_DATA_DIR}/config.xml"
 
