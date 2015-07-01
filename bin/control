@@ -75,7 +75,7 @@ function start() {
       -jar ${JENKINS_WAR_PATH} \
       --ajp13Port=-1 \
       --controlPort=-1 \
-      --logfile=${JENKINS_LOG_DIR}/jen.log \
+      --logfile=${OPENSHIFT_LOG_DIR}/jen.log \
       --httpPort=8080 \
       --handlerCountMax=45 \
       --handlerCountMaxIdle=20 \
