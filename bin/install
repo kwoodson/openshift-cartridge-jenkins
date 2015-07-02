@@ -40,7 +40,7 @@ fi
 
 pushd $OPENSHIFT_DATA_DIR/tmp
 
-PACKAGE_NAME="jenkins-1.554.1-1.1.noarch.rpm"
+PACKAGE_NAME="jenkins-1.565.3-1.1.noarch.rpm"
 
 #Fetch package from jenkins-ci.org
 wget -O $OPENSHIFT_DATA_DIR/tmp/$PACKAGE_NAME -nv http://pkg.jenkins-ci.org/redhat-stable/$PACKAGE_NAME

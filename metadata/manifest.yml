@@ -12,6 +12,7 @@ License-Url: https://jenkins-ci.org/mit-license
 Cartridge-Version: 0.0.13
 Compatible-Versions: []
 Cartridge-Vendor: kwoodson
+Source-Url: https://github.com/albfan/openshift-cartridge-jenkins.git
 Categories:
 - web_framework
 - instant_app
